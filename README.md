@@ -1,4 +1,4 @@
-# Next.js Coding Test – Match Viewer
+# Front End Coding Test – Live Score WEbsite
 
 ## Overview
 
@@ -14,8 +14,8 @@ This project displays football match data using the Next.js App Router, styled-c
 ## Getting Started
 
 ```bash
-git clone <repo-url>
-cd my-nextjs-coding-test
+git clone https://github.com/dongtzy25/nextjs-exam.git/
+cd nextjs-exam
 npm install
 npm run dev
 ```
