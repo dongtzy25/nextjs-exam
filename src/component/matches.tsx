@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import MatchCard from "./ui/card";
 import { styled } from "styled-components";
 import MatchFilter from "./filters";
@@ -36,19 +36,21 @@ export default function Matches({ matches }: { matches: Match[] }) {
     }, {} as Record<FilterType, number>);
   }, [matches]);
 
-  // Single function to handle filtering
-  const handleFilterClick = (filter: FilterType) => {
-    setActiveFilter(filter);
+  const handleFilterClick = useCallback(
+    (filter: FilterType) => {
+      setActiveFilter(filter);
 
-    const selectedFilter = FILTERS.find((f) => f.key === filter);
+      const selectedFilter = FILTERS.find((f) => f.key === filter);
 
-    const filtered =
-      selectedFilter?.matchType === null
-        ? matches
-        : matches.filter((m) => m.status.type === selectedFilter?.matchType);
+      const filtered =
+        selectedFilter?.matchType === null
+          ? matches
+          : matches.filter((m) => m.status.type === selectedFilter?.matchType);
 
-    setFilteredMatches(filtered);
-  };
+      setFilteredMatches(filtered);
+    },
+    [matches] // deps needed inside the function
+  );
 
   // Initialize on mount
   useEffect(() => {
