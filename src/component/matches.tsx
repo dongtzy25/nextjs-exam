@@ -53,7 +53,8 @@ export default function Matches({ matches }: { matches: Match[] }) {
   // Initialize on mount
   useEffect(() => {
     handleFilterClick("All");
-  }, []);
+  }, [handleFilterClick]);
+
   return (
     <div style={{ padding: "1rem" }}>
       <MatchFilter

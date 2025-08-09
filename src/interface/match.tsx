@@ -27,7 +27,7 @@ interface Team {
   name: string;
   slug: string;
   gender: "M" | "F";
-  subTeams: any[]; // Update if you know the shape of subTeams
+  subTeams: []; // Update if you know the shape of subTeams
 }
 
 interface Score {

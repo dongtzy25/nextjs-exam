@@ -1,6 +1,6 @@
 "use client";
 
-import { FILTERS, FilterType, Props } from "@/interface/fliter";
+import { FILTERS, Props } from "@/interface/fliter";
 import styled from "styled-components";
 
 const FilterWrapper = styled.div`

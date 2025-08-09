@@ -5,14 +5,17 @@ import FilterWrapper from "@/component/filters";
 describe("FilterWrapper", () => {
   it("renders filters and handles clicks", () => {
     const mockOnFilter = jest.fn();
-    const filters = ["All", "Live"];
+    const filters = [
+      { label: "All", value: "All" },
+      { label: "Live", value: "Live" },
+    ];
     const countMatches = { All: 2, Live: 1 };
 
     render(
       <FilterWrapper
         filters={filters}
         activeFilter="All"
-        countMatches={countMatches["All"]}
+        countMatches={countMatches}
         onFilter={mockOnFilter}
       />
     );
