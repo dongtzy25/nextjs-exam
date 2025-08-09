@@ -1,9 +1,7 @@
 "use client";
 
+import { FILTERS, FilterType, Props } from "@/interface/fliter";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { Match } from "@/interface/match";
-import { Props } from "@/interface/fliter";
 
 const FilterWrapper = styled.div`
   display: flex;
@@ -11,13 +9,13 @@ const FilterWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
-const FilterButton = styled.button<{ $active?: boolean }>`
+const FilterButton = styled.button<{ active?: boolean }>`
   padding: 0.5rem 1rem;
   border-radius: 6px;
-  background-color: ${({ $active, theme }) =>
-    $active ? theme.colors.primary : theme.colors.background};
-  color: ${({ $active, theme }) =>
-    $active ? theme.colors.background : theme.colors.text};
+  background-color: ${({ active, theme }) =>
+    active ? theme.colors.primary : theme.colors.background};
+  color: ${({ active, theme }) =>
+    active ? theme.colors.background : theme.colors.text};
   border: 1px solid ${({ theme }) => theme.colors.text}50;
   cursor: pointer;
 
@@ -31,54 +29,21 @@ const FilterButton = styled.button<{ $active?: boolean }>`
   }
 `;
 
-const FILTERS = ["All", "Result", "Live", "Upcoming"] as const;
-type FilterType = (typeof FILTERS)[number];
-
-export default function MatchFilter({ matches, onFilter }: Props) {
-  const [activeFilter, setActiveFilter] = useState<FilterType>("All");
-
-  const countMatches = {
-    All: matches.length,
-    Result: matches.filter((m) => m.status.type === "finished").length,
-    Live: matches.filter((m) => m.status.type === "inprogress").length,
-    Upcoming: matches.filter((m) => m.status.type === "notstarted").length,
-  };
-
-  const handleFilterClick = (filter: FilterType) => {
-    setActiveFilter(filter);
-
-    let filteredMatches: Match[] = [];
-
-    switch (filter) {
-      case "Result":
-        filteredMatches = matches.filter((m) => m.status.type === "finished");
-        break;
-      case "Live":
-        filteredMatches = matches.filter((m) => m.status.type === "inprogress");
-        break;
-      case "Upcoming":
-        filteredMatches = matches.filter((m) => m.status.type === "notstarted");
-        break;
-      default:
-        filteredMatches = matches;
-    }
-    onFilter(filteredMatches);
-  };
-
-  // Run default filter once on mount
-  useEffect(() => {
-    handleFilterClick("All");
-  }, []);
-
+export default function MatchFilter({
+  activeFilter,
+  filters,
+  countMatches,
+  onFilter,
+}: Props) {
   return (
     <FilterWrapper>
-      {FILTERS.map((filter) => (
+      {filters.map((filter: (typeof FILTERS)[number]) => (
         <FilterButton
-          key={filter}
-          $active={activeFilter === filter}
-          onClick={() => handleFilterClick(filter)}
+          key={filter.key}
+          active={activeFilter === filter.key.toString()}
+          onClick={() => onFilter(filter.key)}
         >
-          {filter} <span>({countMatches[filter]})</span>
+          {filter.label} <span>({countMatches[filter.key]})</span>
         </FilterButton>
       ))}
     </FilterWrapper>

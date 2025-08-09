@@ -6,8 +6,8 @@ import { StatusBar } from "./status";
 import { format } from "date-fns";
 
 const Card = styled.div`
-  background: #0c0c2c;
-  color: white;
+  background: ${({ theme }) => theme.colors.card};
+  color: ${({ theme }) => theme.colors.text};
   width: 320px;
   border-radius: 16px;
   padding: 20px;
@@ -71,7 +71,7 @@ const TeamRow = styled.div`
 const Quarter = styled.div`
   text-align: center;
   font-size: 14px;
-  color: yellow;
+  color: ${({ theme }) => theme.colors.primary};
   font-weight: bold;
   margin-top: 15px;
 `;
@@ -90,13 +90,13 @@ const LabelsRow = styled.div`
   opacity: 0.7;
   margin-top: 8px;
   & span {
-    color: #fff;
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 
 const MatchTime = styled.div`
   font-size: 0.85rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
   text-align: center;
   margin-bottom: 0.5rem;
 `;
